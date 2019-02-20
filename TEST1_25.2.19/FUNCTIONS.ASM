@@ -1,6 +1,21 @@
-; Выход из приложения
-AXIT_APP:
-	mov ax,4C00h
+; Application exit
+ExitProcess:
+	mov ax, 4C00h
 	int 21h
 
+; Printing symbol from DL, procedure
+print_symbol_from_DL PROC
+	; DOS Fn 02H: display output
+	; AH = 02H
+	; DL = The symbol displayed on the standard output
+	mov AH, 02h
+	int 21h
+	ret
+print_symbol_from_DL ENDP
 
+; Printing symbol from DL, label
+	; DOS Fn 02H: display output
+	; AH = 02H
+	; DL = The symbol displayed on the standard output
+	mov AH, 02h
+	int 21h

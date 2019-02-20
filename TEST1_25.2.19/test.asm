@@ -38,6 +38,6 @@ print_symbol_from_DL ENDP
 ExitProcess:
 	mov AH, 4CH
 	INT 21H
-	
+
 CSEG ENDS
 END MAIN
