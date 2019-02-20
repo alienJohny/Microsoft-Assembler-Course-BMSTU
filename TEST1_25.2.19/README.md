@@ -1,15 +1,18 @@
-﻿<h1><a id="____1_0"></a>Подготовка к контрольной работе №1</h1>
-<p><strong>Образование физического адреса</strong><br>
-Память представляет собой линейную последовательность байтов, поделенную на параграфы.<br>
-<strong><em>Параграфы</em></strong> - последовательности из 16 байт, у первого из которых адрес кратен 16.<br>
-Параграф является минимально возможным x86 сегментом.<br>
-Полный физический адрес составляется из номера сегмента и смещения относительно<br>
-начала этого сегмента (“байт 5 сегмента 3”).</p>
-<pre><code>&lt;full address&gt; = &lt;segment number&gt; * &lt;segment size&gt; + &lt;bias (or offset)&gt;
-</code></pre>
-<hr>
-<p><strong>Структура одномодульной программы на 16 битном Microsoft Assembler x8086</strong></p>
-<pre><code>; ОПИСАНИЕ СЕГМЕНТА СТЕКА
+﻿# Подготовка к контрольной работе №1
+**Образование физического адреса**
+Память представляет собой линейную последовательность байтов, поделенную на параграфы.
+***Параграфы*** - последовательности из 16 байт, у первого из которых адрес кратен 16.
+Параграф является минимально возможным x86 сегментом.
+Полный физический адрес составляется из номера сегмента и смещения относительно
+начала этого сегмента ("байт 5 сегмента 3").
+```
+<full address> = <segment number> * <segment size> + <bias (or offset)>
+```
+
+***
+**Структура одномодульной программы на 16 битном Microsoft Assembler x8086**
+```
+; ОПИСАНИЕ СЕГМЕНТА СТЕКА
 SEGMENT_STACK SEGMENT PARA STACK 'STACK'
     DB 64 DUP('STACK')
 SEGMENT_STACK ENDS
@@ -33,37 +36,42 @@ PROGSTART:
     INT 21H
 SEGMENT_CODE ENDS
 END PROGSTART
-</code></pre>
-<p>Повторные описания сегментов обынно используются, когда один и тот же сегмент описывается в нескольких модулях, или чтобы расположить данные рядом с операциями между ними.</p>
-<h2><a id="____42"></a>Возможные структуры кодового сегмента</h2>
-<pre><code>&lt;CODE_SEGMENT_NAME&gt; SEGMENT [&lt;ALIGNING_TYPE&gt;] ['CODE']
+```
+
+Повторные описания сегментов обынно используются, когда один и тот же сегмент описывается в нескольких модулях, или чтобы расположить данные рядом с операциями между ними.
+
+## Возможные структуры кодового сегмента
+```
+<CODE_SEGMENT_NAME> SEGMENT [<ALIGNING_TYPE>] ['CODE']
     ASSUME CS:CODE_SEGMENT_NAME,
            DS:DATA_SEGMENT_NAME,
            SS:STACK_SEGMENT_NAME
            
-    &lt;PROC1&gt; PROC [FAR|NEAR]
-        CALL &lt;PROC2&gt;
-        CALL &lt;PROC3&gt;
-    &lt;PROC1&gt; ENDP
+    <PROC1> PROC [FAR|NEAR]
+        CALL <PROC2>
+        CALL <PROC3>
+    <PROC1> ENDP
     
-    &lt;PROC2&gt; PROC
+    <PROC2> PROC
         ; SOME CODE HERE...
         RET
-    &lt;PROC2&gt; ENDP
+    <PROC2> ENDP
     
-    &lt;PROC3&gt; PROC FAR
+    <PROC3> PROC FAR
         ; SOME CODE HERE...
         RET ; WILL BE CHANGED TO RETF AUTOMATICLY
-    &lt;PROC3&gt; ENDP
+    <PROC3> ENDP
     
-    &lt;ENTRY_POINT_LABEL&gt;:
+    <ENTRY_POINT_LABEL>:
         ; SOME CODE HERE...
     
-&lt;SEGMENT_CODE_NAME&gt; ENDS
-END &lt;ENTRY_POINT_LABEL&gt;
-</code></pre>
-<p><strong>FAR</strong> - подпрограмма дальнего вызова (можно вызывать из других сегментов).<br>
-<strong>NEAR</strong> - ближнего (вызов только из этого сегмента).<br>
-<strong>RET</strong> - дальнего вызова.</p>
-<p><code>&lt;ALIGNMENT TYPE&gt;</code> может быть <strong>PARA</strong>, <strong>BYTE</strong>, <strong>WORD</strong>, <strong>PAGE</strong>.<br>
-Указывает, чему должны быть кратны адрес начала и конца сегмента. По умолчанию <strong>PARA</strong>.</p>
+<SEGMENT_CODE_NAME> ENDS
+END <ENTRY_POINT_LABEL>
+```
+
+**FAR** - подпрограмма дальнего вызова (можно вызывать из других сегментов).
+**NEAR** - ближнего (вызов только из этого сегмента).
+**RET** - дальнего вызова.
+
+`<ALIGNMENT TYPE>` может быть **PARA**, **BYTE**, **WORD**, **PAGE**.
+Указывает, чему должны быть кратны адрес начала и конца сегмента. По умолчанию **PARA**.
