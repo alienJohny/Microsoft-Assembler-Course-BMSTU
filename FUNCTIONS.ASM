@@ -19,3 +19,8 @@ print_symbol_from_DL ENDP
 	; DL = The symbol displayed on the standard output
 	mov AH, 02h
 	int 21h
+
+; Read without echo
+read_from_stdin:
+	mov AH, 07h
+	int 21h
