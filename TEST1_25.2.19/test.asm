@@ -40,4 +40,4 @@ ExitProcess:
 	INT 21H
 
 CSEG ENDS
-END MAIN
+END main

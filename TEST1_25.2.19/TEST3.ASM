@@ -1,0 +1,19 @@
+SSEG SEGMENT PARA STACK 'STACK'
+	db 64 dup(0)
+SSEG ENDS
+
+DSEG SEGMENT PARA 'DATA'
+	A db "DCAB"
+DSEG ENDS
+
+CSEG SEGMENT PARA 'CODE'
+	ASSUME CS:CSEG, DS:DSEG, SS:SSEG
+
+applicationExit:
+	mov ax, 4C00h
+	int 21h
+
+main:
+	jmp applicationExit
+CSEG ENDS
+END main

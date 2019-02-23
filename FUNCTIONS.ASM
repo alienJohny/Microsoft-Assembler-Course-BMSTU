@@ -1,9 +1,9 @@
 ; Application exit
-ExitProcess:
+applicationExit:
 	mov ax, 4C00h
 	int 21h
 
-; Printing symbol from DL, procedure
+; Printing symbol from DL, <procedure implementation>
 print_symbol_from_DL PROC
 	; DOS Fn 02H: display output
 	; AH = 02H
@@ -13,7 +13,7 @@ print_symbol_from_DL PROC
 	ret
 print_symbol_from_DL ENDP
 
-; Printing symbol from DL, label
+; Printing symbol from DL, <label implementation>
 	; DOS Fn 02H: display output
 	; AH = 02H
 	; DL = The symbol displayed on the standard output
@@ -24,3 +24,9 @@ print_symbol_from_DL ENDP
 read_from_stdin:
 	mov AH, 07h
 	int 21h
+
+; Simple loop
+simpleLoop:
+	; <some code> ...
+	loop simpleLoop
+
