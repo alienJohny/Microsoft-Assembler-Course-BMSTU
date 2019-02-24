@@ -14,6 +14,7 @@ print_symbol_from_DL PROC
 print_symbol_from_DL ENDP
 
 ; Printing symbol from DL, <label implementation>
+print_symbol_from_DL:
 	; DOS Fn 02H: display output
 	; AH = 02H
 	; DL = The symbol displayed on the standard output
@@ -29,4 +30,9 @@ read_from_stdin:
 simpleLoop:
 	; <some code> ...
 	loop simpleLoop
+
+
+
+
+
 
