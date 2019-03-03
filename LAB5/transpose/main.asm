@@ -9,6 +9,7 @@ dseg segment para 'data'
 	  db '33333'
 	  db '44444'
 	  db '55555'
+    B db 25 dup(0)
 dseg ends
 
 cseg segment para 'stack'
@@ -38,7 +39,6 @@ printMatrix PROC
             inc BX
             loop loopCol    
         breakLoopCol:
-        
         call printNewLine
     
         cmp SI, 4h
@@ -61,7 +61,7 @@ printMatrix PROC
     printNewLine PROC
         mov DL, 10d ; New line character
         call print_symbol_from_DL
-        mov DL, 13d ;
+        mov DL, 13d ; New line return
         call print_symbol_from_DL
         ret
     printNewLine ENDP
