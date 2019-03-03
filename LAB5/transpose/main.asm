@@ -2,33 +2,33 @@ sseg segment para stack 'stack'
 sseg ends
 
 dseg segment para 'data'
-	shape db 5
+    shape db 5
     tmp db ?
     A db '11111'
-	  db '22222'
-	  db '33333'
-	  db '44444'
-	  db '55555'
+      db '22222'
+      db '33333'
+      db '44444'
+      db '55555'
     B db 25 dup(0)
 dseg ends
 
 cseg segment para 'stack'
-	assume CS:cseg, DS:dseg, SS:sseg
+    assume CS:cseg, DS:dseg, SS:sseg
 
 ; Application exit
 applicationExit:
-	mov ax, 4C00h
-	int 21h
+    mov ax, 4C00h
+    int 21h
 
 ; Symbol stdout
 print_symbol_from_DL PROC
-	mov AH, 02h
-	int 21h
-	ret
+    mov AH, 02h
+    int 21h
+    ret
 print_symbol_from_DL ENDP
 
 printMatrix PROC
-	mov SI, 0
+    mov SI, 0
     loopRow:
     
         mov BX, 0
@@ -76,12 +76,11 @@ printMatrix PROC
 printMatrix ENDP
 
 main:
-	mov AX, dseg
-	mov DS, AX
+    mov AX, dseg
+    mov DS, AX
 
-	call printMatrix
+    call printMatrix
 
-	jmp applicationExit
+    jmp applicationExit
 cseg ends
 end main
-
