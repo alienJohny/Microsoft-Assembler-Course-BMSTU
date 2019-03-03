@@ -1,0 +1,88 @@
+Microsoft (R) Macro Assembler Version 5.10                  2/26/19 17:09:43
+                                                             Page     1-1
+
+
+       1 0000				SSEG SEGMENT PARA STACK 'STACK'
+       2 0000  0040[				db 64 DUP(0)
+       3	   00			
+       4			 ]	
+       5				
+       6 0040				SSEG ENDS
+       7				
+       8 0000				DSEG SEGMENT PARA 'DATA'
+       9 0000  1E				min db 30
+      10 0001  27				max db 39
+      11 0002				DSEG ENDS
+      12				
+      13 0000				CSEG SEGMENT PARA 'CODE'
+      14					ASSUME CS:CSEG, DS:DSEG, SS:SSE
+					G
+      15				
+      16 0000				print_symbol_from_DL PROC
+      17					; DOS Fn 02H: display output
+      18					; AH = 02H
+      19					; DL = The symbol displayed on 
+					the standard output
+      20 0000  B4 02				mov AH, 02h
+      21 0002  CD 21				int 21h
+      22 0004  C3				ret
+      23 0005				print_symbol_from_DL ENDP
+      24				
+      25 0005				applicationExit:
+      26 0005  B8 4C00				mov AX, 4c00h
+      27 0008  CD 21				int 21h
+      28				
+      29 000A				printChars:
+      30 000A  E8 0000 R			call print_symbol_from_DL
+      31 000D  FE C2				inc DL
+      32 000F  3A 16 0001 R			cmp DL, max
+      33 0013  75 F5				jne printChars
+      34 0015  EB EE				jmp applicationExit
+      35				
+      36				; entry point
+      37 0017				main:
+      38 0017  B8 ---- R			mov AX, dseg
+      39 001A  8E D8				mov DS, AX ; Load data segment
+      40				
+      41 001C  8A 16 0000 R			mov DL, min
+      42 0020  EB E8				jmp printChars
+      43 0022				CSEG ENDS
+      44				END main
+Microsoft (R) Macro Assembler Version 5.10                  2/26/19 17:09:43
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CSEG . . . . . . . . . . . . . .  	0022	PARA	NONE	'CODE'
+DSEG . . . . . . . . . . . . . .  	0002	PARA	NONE	'DATA'
+SSEG . . . . . . . . . . . . . .  	0040	PARA	STACK	'STACK'
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+APPLICATIONEXIT  . . . . . . . .  	L NEAR	0005	CSEG
+
+MAIN . . . . . . . . . . . . . .  	L NEAR	0017	CSEG
+MAX  . . . . . . . . . . . . . .  	L BYTE	0001	DSEG
+MIN  . . . . . . . . . . . . . .  	L BYTE	0000	DSEG
+
+PRINTCHARS . . . . . . . . . . .  	L NEAR	000A	CSEG
+PRINT_SYMBOL_FROM_DL . . . . . .  	N PROC	0000	CSEG	Length = 0005
+
+@CPU . . . . . . . . . . . . . .  	TEXT  0101h		
+@FILENAME  . . . . . . . . . . .  	TEXT  TEST4		
+@VERSION . . . . . . . . . . . .  	TEXT  510		
+
+
+     41 Source  Lines
+     41 Total   Lines
+     21 Symbols
+
+  46704 + 447404 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

@@ -3,8 +3,8 @@ SSEG SEGMENT PARA STACK 'STACK'
 SSEG ENDS
 
 DSEG SEGMENT PARA 'DATA'
-	min db 88
-	max db 99
+	min db 30
+	max db 39
 DSEG ENDS
 
 CSEG SEGMENT PARA 'CODE'
@@ -24,7 +24,6 @@ applicationExit:
 	int 21h
 
 printChars:
-	
 	call print_symbol_from_DL
 	inc DL
 	cmp DL, max
@@ -40,8 +39,3 @@ main:
 	jmp printChars
 CSEG ENDS
 END main
-
-
-
-
-
