@@ -28,7 +28,6 @@ print_symbol_from_DL PROC
 print_symbol_from_DL ENDP
 
 printMatrixB PROC
-
     mov SI, 0
     loopRow:
         mov BX, 0
@@ -76,7 +75,6 @@ printMatrixB PROC
 printMatrixB ENDP
 
 transpose PROC
-
     mov SI, 0
     loopRowTranspose:
         mov BX, 0
