@@ -5,3 +5,5 @@ del *.MAP
 del *.CRF
 del *.LST
 del *.OBJ
+
+MAIN.EXE

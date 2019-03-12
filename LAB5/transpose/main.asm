@@ -3,13 +3,14 @@ sseg ends
 
 dseg segment para 'data'
     shape db 5
-    tmp db ?
     A db '11111'
       db '22222'
       db '33333'
       db '44444'
       db '55555'
     B db 25 dup('?') ;Fill by '?' for best debug
+    lastSI dw ?
+    lastBX dw ?
 dseg ends
 
 cseg segment para 'stack'
@@ -17,7 +18,7 @@ cseg segment para 'stack'
 
 ; Application exit
 applicationExit:
-    mov ax, 4C00h
+    mov AX, 4C00h
     int 21h
 
 ; Symbol stdout
@@ -82,14 +83,17 @@ transpose PROC
     
             ;Transpose elements commands
             ;B[BX * 5][SI] = A[SI * 5][BX]
-            push BX
-            push SI
+            mov DI, SI ;Save SI state
+            mov DX, BX ;Save BX state
+            
             call mulSI5
-            mov CH, A[SI][BX]
-            pop SI
+            ;mov DH, A[SI][BX] ;Save value
+            mov CH, A[SI][BX] ;Save value
+            mov SI, DI
             call mulBX5
-            mov B[BX][SI], CH
-            pop BX
+            ;xchg B[BX][SI], DH
+            xchg B[BX][SI], CH
+            mov BX, DX
             
             cmp BX, 4h
             je breakLoopColTranspose
@@ -116,7 +120,7 @@ main:
     mov DS, AX
 
     call transpose
-    call printMatrixB
+    ;call printMatrixB
 
     jmp applicationExit
 cseg ends
