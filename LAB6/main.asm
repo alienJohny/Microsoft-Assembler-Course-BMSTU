@@ -1,10 +1,10 @@
 extrn SCAN : near
-extrn F1 : near	; unsigned bin
-extrn F2 : near	; signed bin
-extrn F3 : near	; unsigned dec
-extrn F4 : near	; signed dec
-extrn F5 : near	; unsigned hex
-extrn F6 : near	; signed hex
+extrn F1 : near	;unsigned bin
+extrn F2 : near	;signed bin
+extrn F3 : near	;unsigned dec
+extrn F4 : near	;signed dec
+extrn F5 : near	;unsigned hex
+extrn F6 : near	;signed hex
 
 sstack segment para stack 'stack'
     db 64 dup(0)
@@ -14,7 +14,7 @@ dseg segment para public 'DATA'
     F DW F1, F2, F3, F4, F5, F6
     X DW 5
 		
-    MENU db '    MENU', 10, 13
+    MENU db 'MENU', 10, 13
          db '0. Print menu', 10, 13
          db '1. Input number', 10, 13
          db '2. Num as unsigned bin', 10, 13
@@ -55,16 +55,16 @@ SCAN_CHOICE:
     mov  BL, AL
     xor  BH, BH
 
-    mov  AH, 2
+    mov  AH, 02h
     mov  DL, AL
     int  21H
 
-    mov  AH, 9
+    mov  AH, 09h
     mov  DX, offset NLINE
-    int  21H
+    int  21h
 PROCESS:
     sub  BX, '0'
-        
+
     cmp  BX, 8
     jae  EXIT
         

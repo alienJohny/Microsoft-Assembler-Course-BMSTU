@@ -1,7 +1,7 @@
 PUBLIC SCAN
 
 DSEG	SEGMENT PARA PUBLIC 'DATA'
-		ENT		DB	'>> $'
+		ENT	DB	'>> $'
 		NLINE	DB	10, 13, '$'
 DSEG	ENDS
 
@@ -56,7 +56,7 @@ SCAN PROC NEAR
 		INT  21H
 		
 		MOV  CH, 1
-		
+
 		JMP  INPUT_LOOP
 		
 	INPUT_END:
