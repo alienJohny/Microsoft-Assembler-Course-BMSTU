@@ -1,0 +1,35 @@
+public f2
+
+extrn f1 : near
+
+CSEG SEGMENT PARA PUBLIC 'CODE'
+		ASSUME CS:CSEG
+
+f2		PROC NEAR
+		PUSH BP
+		MOV  BP, SP
+
+		MOV  CX, [BP + 4]
+		MOV  BX, [BP + 6]
+
+		CMP  CL, 0
+		JE   F2_SKIP_NEG
+
+		MOV  AH, 2
+		MOV  DL, '-'
+		INT  21H
+
+		NEG  BX
+
+F2_SKIP_NEG:
+		PUSH BX
+		PUSH CX
+		
+		CALL f1
+		
+		POP BP
+		RET 4
+f2		ENDP
+
+CSEG ENDS
+END

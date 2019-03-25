@@ -12,19 +12,19 @@ CSEG	SEGMENT PARA PUBLIC 'CODE'
 F2		PROC NEAR
 		PUSH BP
 		MOV  BP, SP
-		
+
 		MOV  CX, [BP + 4]
 		MOV  BX, [BP + 6]
-		
+
 		CMP  CL, 0
 		JE   F2_SKIP_NEG
-		
+
 		MOV  AH, 2
 		MOV  DL, '-'
 		INT  21H
-		
+
 		NEG  BX
-		
+
 F2_SKIP_NEG:
 		PUSH BX
 		PUSH CX
@@ -38,13 +38,13 @@ F2		ENDP
 F4		PROC NEAR
 		PUSH BP
 		MOV  BP, SP
-		
+
 		MOV  CX, [BP + 4]
 		MOV  BX, [BP + 6]
-		
+
 		CMP  CL, 0
 		JE   F4_SKIP_NEG
-		
+
 		MOV  AH, 2
 		MOV  DL, '-'
 		INT  21H
